@@ -9,6 +9,10 @@ print_img_path:
 print_box_name:
 	@echo $(BOX_NAME)
 
+print_box_version:
+	@echo $(BOX_VERSION)
+
+
 
 $(UBUNTU_IMG_PATH):
 	vagrant box add \
