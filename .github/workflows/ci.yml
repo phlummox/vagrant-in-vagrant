@@ -95,7 +95,7 @@ jobs:
           vagrant.d.tgz
         body_path: release-notes.md
         draft: true
-        name: ${{ release_name }}
+        # name: ${{ release_name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
