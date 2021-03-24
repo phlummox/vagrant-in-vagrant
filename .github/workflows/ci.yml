@@ -61,6 +61,7 @@ jobs:
         set -x
 
         sudo apt install -y --no-install-recommends \
+            libvirt-bin \
             libvirt-dev
         tar xf vagrant.d.tgz -C ~
         sudo systemctl start libvirtd
