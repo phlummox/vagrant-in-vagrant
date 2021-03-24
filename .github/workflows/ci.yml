@@ -48,7 +48,7 @@ jobs:
 
         : "cpu info"
 
-        egrep '(vmx|svm)' /proc/cpuinfo
+        egrep '(vmx|svm)' /proc/cpuinfo || true
 
         : "modules"
 
