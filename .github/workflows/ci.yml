@@ -36,26 +36,6 @@ jobs:
 
     - name: run build
       run: |
-        set -x
-        sudo modprobe kvm || true
-        sudo modprobe kvm_intel || true
-
-        # ??
-        # modprobe kvm-intel nested=1
-
-        : "show id"
-        id
-
-        : "cpu info"
-
-        egrep '(vmx|svm)' /proc/cpuinfo || true
-
-        : "modules"
-
-        lsmod | grep kvm
-
-        : "rest"
-
         set -euo pipefail
         set -x
 
@@ -65,6 +45,13 @@ jobs:
           qemu-kvm \
           qemu-utils
         make packer-build
+
+    - name: test
+      run: |
+        set -euo pipefail
+        set -x
+
+        ./test-vm.sh
 
     - name: Extract start of changelog
       run: |
@@ -81,6 +68,7 @@ jobs:
           output/*
           vagrant.d.tgz
         body_path: release-notes.md
+        draft: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
