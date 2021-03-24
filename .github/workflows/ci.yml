@@ -34,16 +34,16 @@ jobs:
         curl -L "${VAGRANT_URL}" > $dir/vagrant.deb;
         sudo apt install $PWD/$dir/vagrant.deb;
 
-    #- name: run build
-    #  run: |
-    #    set -euo pipefail
-    #    set -x
+    - name: run build
+      run: |
+        set -euo pipefail
+        set -x
 
-    #    sudo apt-get update
-    #    sudo apt-get install -y --no-install-recommends \
-    #      pv \
-    #      qemu-kvm \
-    #      qemu-utils
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends \
+          pv \
+          qemu-kvm \
+          qemu-utils
     #    make packer-build
 
     - name: run build
@@ -75,7 +75,7 @@ jobs:
         set -x
 
         echo github ref is "${{ github.ref }}"
-        
+
         #echo "release_name=${{ github.ref }}" | sed 's/\<v//' >> $GITHUB_ENV
 
     #- name:  Show the release name
