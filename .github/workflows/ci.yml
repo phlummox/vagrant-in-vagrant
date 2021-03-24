@@ -60,6 +60,8 @@ jobs:
         set -euo pipefail
         set -x
 
+        sudo apt install -y --no-install-recommends \
+            libvirt-dev
         tar xf vagrant.d.tgz -C ~
         ./test-vm.sh
 
