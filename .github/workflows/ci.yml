@@ -63,6 +63,8 @@ jobs:
         sudo apt install -y --no-install-recommends \
             libvirt-dev
         tar xf vagrant.d.tgz -C ~
+        sudo systemctl start libvirtd
+        sudo systemctl status libvirtd
         ./test-vm.sh
 
     - name: Extract start of changelog
