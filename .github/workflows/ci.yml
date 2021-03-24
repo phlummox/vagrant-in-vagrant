@@ -1,0 +1,51 @@
+name: ci
+
+on: ["push"]
+
+jobs:
+  ci:
+    runs-on: ubuntu-18.04
+    env:
+      PACKER_VERSION: "1.7.0"
+      VAGRANT_VERSION: "2.2.14"
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install packer
+      run: |
+        set -euo pipefail
+        set -x
+
+        PACKER_URL="https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip"
+        wget $PACKER_URL
+        unzip packer_${PACKER_VERSION}_linux_amd64.zip
+        sudo mv packer /usr/local/bin
+
+        packer --version
+
+    - name: Install vagrant
+      run: |
+        set -euo pipefail
+        set -x
+
+        VAGRANT_URL="https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb"
+        dir=`mktemp -d tmp-downloaded-vagrant-deb-XXXXX`
+        curl -L "${VAGRANT_URL}" > $dir/vagrant.deb;
+        sudo apt install $dir/vagrant.deb;
+
+    - name: run build
+      run: |
+        set -euo pipefail
+        set -x
+
+        make packer-build
+
+    #- name: run build
+    #  run: |
+    #    set -euo pipefail
+    #    set -x
+
+    #    make packer-build
+
+# vim: ts=2 sw=2 et :
