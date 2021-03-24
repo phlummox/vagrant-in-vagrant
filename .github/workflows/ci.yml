@@ -66,6 +66,16 @@ jobs:
           qemu-utils
         make packer-build
 
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          output/*
+          vagrant.d.tgz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     #- name: run build
     #  run: |
     #    set -euo pipefail
