@@ -66,6 +66,10 @@ jobs:
         tar xf vagrant.d.tgz -C ~
         sudo systemctl start libvirtd
         sudo systemctl status libvirtd
+        sudo adduser $USER libvirt
+        sudo adduser $USER kvm
+        newgrp libvirt
+
         ./test-vm.sh
 
     - name: Extract start of changelog
