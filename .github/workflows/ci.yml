@@ -32,7 +32,7 @@ jobs:
         VAGRANT_URL="https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb"
         dir=`mktemp -d tmp-downloaded-vagrant-deb-XXXXX`
         curl -L "${VAGRANT_URL}" > $dir/vagrant.deb;
-        sudo apt install $dir/vagrant.deb;
+        sudo apt install $PWD/$dir/vagrant.deb;
 
     - name: run build
       run: |
