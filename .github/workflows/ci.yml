@@ -75,14 +75,15 @@ jobs:
         set -x
 
         echo github ref is "${{ github.ref }}"
-        echo "release_name=${{ github.ref }}" | sed 's/\<v//' >> $GITHUB_ENV
+        
+        #echo "release_name=${{ github.ref }}" | sed 's/\<v//' >> $GITHUB_ENV
 
-    - name:  Show the release name
-      run: |
-        set -x
+    #- name:  Show the release name
+    #  run: |
+    #    set -x
 
-        #echo release name is "${{ release_name }}"
-        cat $GITUHB_ENV
+    #    #echo release name is "${{ release_name }}"
+    #    cat $GITHUB_ENV
 
 
     - name: Release (if tagged)
