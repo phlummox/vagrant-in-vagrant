@@ -1,6 +1,13 @@
 
 .PHONY: packer-build clean print_img_path print_box_name
 
+# prerequisites:
+#
+# Aside from packer and vagrant, the only packages
+# needed for the build that are not already commonly
+# installed on ubuntu systems are pv
+# and qemu-utils.
+
 include vars.mk
 
 print_img_path:
