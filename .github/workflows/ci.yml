@@ -1,9 +1,9 @@
-name: ci
+name: build
 
 on: ["push"]
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-18.04
     env:
       PACKER_VERSION: "1.7.0"
@@ -36,6 +36,26 @@ jobs:
 
     - name: run build
       run: |
+        set -x
+        sudo modprobe kvm || true
+        sudo modprobe kvm_intel || true
+
+        # ??
+        # modprobe kvm-intel nested=1
+
+        : "show id"
+        id
+
+        : "cpu info"
+
+        egrep '(vmx|svm)' /proc/cpuinfo
+
+        : "modules"
+
+        lsmod | grep kvm
+
+        : "rest"
+
         set -euo pipefail
         set -x
 
