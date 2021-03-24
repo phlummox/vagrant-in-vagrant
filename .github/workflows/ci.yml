@@ -34,23 +34,33 @@ jobs:
         curl -L "${VAGRANT_URL}" > $dir/vagrant.deb;
         sudo apt install $PWD/$dir/vagrant.deb;
 
+    #- name: run build
+    #  run: |
+    #    set -euo pipefail
+    #    set -x
+
+    #    sudo apt-get update
+    #    sudo apt-get install -y --no-install-recommends \
+    #      pv \
+    #      qemu-kvm \
+    #      qemu-utils
+    #    make packer-build
+
     - name: run build
       run: |
         set -euo pipefail
         set -x
 
-        sudo apt-get update
-        sudo apt-get install -y --no-install-recommends \
-          pv \
-          qemu-kvm \
-          qemu-utils
-        make packer-build
+        wget 'https://github.com/phlummox/vagrant-in-vagrant/releases/download/v0.2.x/vagrant.d.tgz'
+        mkdir output
+        (cd output; wget 'https://github.com/phlummox/vagrant-in-vagrant/releases/download/v0.2.x/vagrant_in_vagrant_0.0.1.box')
 
     - name: test
       run: |
         set -euo pipefail
         set -x
 
+        tar xf vagrant.d.tgz -C ~
         ./test-vm.sh
 
     - name: Extract start of changelog
@@ -59,6 +69,20 @@ jobs:
         set -x
 
         ./topmost-changelog-sec.sh > release-notes.md
+
+    - name:  Set the release name
+      run: |
+        set -x
+
+        echo github ref is "${{ github.ref }}"
+        echo "release_name=${{ github.ref }}" | sed 's/\<v//' >> $GITHUB_ENV
+
+    - name:  Show the release name
+      run: |
+        set -x
+
+        echo release name is "${{ release_name }}"
+
 
     - name: Release (if tagged)
       uses: softprops/action-gh-release@v1
@@ -69,6 +93,7 @@ jobs:
           vagrant.d.tgz
         body_path: release-notes.md
         draft: true
+        name: ${{ release_name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
