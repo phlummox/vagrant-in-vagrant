@@ -81,7 +81,8 @@ jobs:
       run: |
         set -x
 
-        echo release name is "${{ release_name }}"
+        #echo release name is "${{ release_name }}"
+        cat $GITUHB_ENV
 
 
     - name: Release (if tagged)
