@@ -16,6 +16,6 @@ id
 
 vagrant up --provider libvirt
 
-vagrant ssh -- bash -c "set -ex; vagrant init generic/alpine312; vagrant up --provider libvirt; vagrant ssh pwd"
+vagrant ssh -- bash -c "echo ssh-ing; set -ex; vagrant box add --provider libvirt generic/alpine312;  vagrant init generic/alpine312; vagrant up --debug --provider libvirt; vagrant ssh pwd"
 
 
