@@ -30,9 +30,19 @@ $(UBUNTU_IMG_PATH):
 #     virtual size: 128G (137438953472 bytes)
 # or similar.
 
-packer-build: $(UBUNTU_IMG_PATH) \
+packer-build: output/vagrant_in_vagrant_0.0.1.box.md5 \
+	            output/vagrant_in_vagrant_0.0.1.box \
+	            output/vagrant_in_vagrant_0.0.1.qcow2
+
+packer-test: packer-build
+	./test-vm.sh
+
+
+output/vagrant_in_vagrant_0.0.1.box.md5 \
+output/vagrant_in_vagrant_0.0.1.box \
+output/vagrant_in_vagrant_0.0.1.qcow2: $(UBUNTU_IMG_PATH) \
 	                .ubuntu_checksum.md5 \
-									vagrant.d.tgz
+	                vagrant.d.tgz
 	@if [ ! -f $(UBUNTU_IMG_PATH) ]; then \
 	  printf 'no box.img found at %s!\n' $(UBUNTU_IMG_PATH); \
 	  exit 1; \
