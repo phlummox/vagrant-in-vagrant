@@ -90,6 +90,14 @@ jobs:
 
         ./test-vm.sh
 
+    - name: fail
+      run: |
+        set -euo pipefail
+        set -x
+
+        false
+
+
     - name: Extract start of changelog
       run: |
         set -euo pipefail
