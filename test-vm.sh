@@ -10,6 +10,10 @@ vagrant box add --name vinv --provider libvirt \
 
 vagrant init vinv
 
+: "show id"
+
+id
+
 vagrant up --provider libvirt
 
 vagrant ssh -- bash -c "set -ex; vagrant init generic/alpine312; vagrant up --provider libvirt; vagrant ssh pwd"
