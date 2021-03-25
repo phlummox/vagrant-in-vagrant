@@ -71,12 +71,11 @@ jobs:
 
     - name: test
       run: |
-        # update gids
-
         set -euo pipefail
         set -x
 
-        sudo su -l $USER -c ./test-vm.sh
+        # update gids and run tests
+        sudo su -l $USER -c "set -ex; cd $PWD; pwd; id; ls -al /var/run/libvirt/libvirt-sock; ./test-vm.sh"
 
     - name: fail
       run: |
