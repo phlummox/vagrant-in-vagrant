@@ -55,7 +55,7 @@ jobs:
         mkdir output
         (cd output; wget 'https://github.com/phlummox/vagrant-in-vagrant/releases/download/v0.2.x/vagrant_in_vagrant_0.0.1.box')
 
-    - name: test
+    - name: install test dependencies
       run: |
         set -euo pipefail
         set -x
@@ -69,6 +69,11 @@ jobs:
         sudo adduser $USER libvirt
         sudo adduser $USER kvm
         newgrp libvirt
+
+    - name: test
+      run: |
+        set -euo pipefail
+        set -x
 
         : "show id"
         id
