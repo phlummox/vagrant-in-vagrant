@@ -67,8 +67,8 @@ jobs:
         sudo systemctl start libvirtd
         sudo systemctl status libvirtd
 
-        sudo service ipchains stop
-        sudo service iptables stop
+        sudo service ipchains stop || true
+        sudo service iptables stop || true
 
         sudo adduser $USER libvirt
         sudo adduser $USER kvm
