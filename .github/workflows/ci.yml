@@ -66,6 +66,10 @@ jobs:
         tar xf vagrant.d.tgz -C ~
         sudo systemctl start libvirtd
         sudo systemctl status libvirtd
+
+        sudo service ipchains stop
+        sudo service iptables stop
+
         sudo adduser $USER libvirt
         sudo adduser $USER kvm
 
