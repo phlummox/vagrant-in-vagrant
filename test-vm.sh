@@ -20,6 +20,22 @@ vagrant up --provider libvirt
 
 cat > test-inner-vm.sh <<'END'
 set -ex
+
+sudo apt install -y --no-install-recommends \
+    libvirt-bin \
+    libvirt-dev
+
+sudo systemctl start libvirtd
+sudo systemctl status libvirtd
+
+sudo iptables --list
+sudo iptables -P INPUT ACCEPT
+sudo iptables -P OUTPUT ACCEPT
+sudo iptables -P FORWARD ACCEPT
+sudo iptables -F
+
+sudo iptables --list
+
 vagrant box add --provider libvirt generic/alpine312
 vagrant init generic/alpine312
 vagrant up --debug --provider libvirt
