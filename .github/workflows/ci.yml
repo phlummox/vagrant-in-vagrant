@@ -68,12 +68,19 @@ jobs:
         sudo systemctl status libvirtd
         sudo adduser $USER libvirt
         sudo adduser $USER kvm
-        newgrp libvirt
 
     - name: test
       run: |
+        exec su -l $USER
+
         set -euo pipefail
         set -x
+
+        : "show pwd"
+        pwd
+
+        : "ls"
+        ls
 
         : "show id"
         id
