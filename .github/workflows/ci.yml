@@ -72,23 +72,11 @@ jobs:
     - name: test
       run: |
         # update gids
-        exec sudo su -l $USER
 
         set -euo pipefail
         set -x
 
-        : "show pwd"
-        pwd
-
-        : "ls"
-        ls
-
-        : "show id"
-        id
-        : "perms"
-        ls -al /var/run/libvirt/libvirt-sock
-
-        ./test-vm.sh
+        sudo su -l $USER -c ./test-vm.sh
 
     - name: fail
       run: |
