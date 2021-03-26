@@ -86,14 +86,6 @@ jobs:
         # update gids and run tests
         sudo su -l $USER -c "set -ex; cd $PWD; pwd; id; ls -al /var/run/libvirt/libvirt-sock; ./test-vm.sh"
 
-    - name: fail
-      run: |
-        set -euo pipefail
-        set -x
-
-        false
-
-
     - name: Extract start of changelog
       run: |
         set -euo pipefail
