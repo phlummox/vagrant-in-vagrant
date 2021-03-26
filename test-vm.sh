@@ -14,43 +14,57 @@ tmpdir=`mktemp --tmpdir -d packer-test-XXXXXX`
 
 cd "$tmpdir"
 
+# if running on a CI server (probably GitHub) --
+# assume we don't have kvm acceleration and must
+# use the slower but more general qemu driver.
+# Else assume we have access to kvm.
+if [ -z "$CI" ]; then
+  LIBVIRT_DRIVER=kvm;
+else
+  LIBVIRT_DRIVER=qemu;
+fi
+
 vagrant init vinv
+
+# adjust vagrantfile to use correct
+# driver
+sed -i 's/^end/  config.vm.provider :libvirt do |lv|\
+    lv.driver = '"$LIBVIRT_DRIVER"'\
+  end\
+end/' Vagrantfile
+
+# check conts
+
+grep -n ^ /dev/null Vagrantfile
 
 vagrant up --provider libvirt
 
-cat > /tmp/Vagrantfile << 'END'
+
+cat > /tmp/Vagrantfile <<EOF
 Vagrant.configure("2") do |config|
   config.vm.box = "generic/alpine312"
   config.ssh.password = "vagrant"
   config.ssh.username = "vagrant"
   config.ssh.insert_key = false
 end
-END
+EOF
+
+# Test to be run on the vagrant VM -
+# can we bring up an inner VM?
 
 cat > test-inner-vm.sh <<'END'
 set -ex
 
 sudo apt install -y --no-install-recommends \
     libvirt-bin \
-    libvirt-dev
-
-sudo apt install sshpass
+    libvirt-dev \
+    sshpass
 
 sudo systemctl start libvirtd
 sudo systemctl status libvirtd
 
-#sudo iptables --list
-#sudo iptables -P INPUT ACCEPT
-#sudo iptables -P OUTPUT ACCEPT
-#sudo iptables -P FORWARD ACCEPT
-#sudo iptables -F
-#
-#sudo iptables --list
-
 vagrant box add --provider libvirt generic/alpine312
-#vagrant init generic/alpine312
 cp /tmp/Vagrantfile .
-
 
 vagrant up --no-provision --debug --provider libvirt
 

@@ -23,7 +23,7 @@ Vagrant.configure(2) do |config|
     # Why? Because it seems if we tell packer to use the default
     # ("choose kvm if available, otherwise software accel")
     # then this seems to result in the package .box not using
-    # kvm by default -- and we want it to.
+    # kvm by default -- and we want it to, usually.
     lv.driver = 'kvm'
   end
 
