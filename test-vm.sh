@@ -39,13 +39,13 @@ sudo apt install sshpass
 sudo systemctl start libvirtd
 sudo systemctl status libvirtd
 
-sudo iptables --list
-sudo iptables -P INPUT ACCEPT
-sudo iptables -P OUTPUT ACCEPT
-sudo iptables -P FORWARD ACCEPT
-sudo iptables -F
-
-sudo iptables --list
+#sudo iptables --list
+#sudo iptables -P INPUT ACCEPT
+#sudo iptables -P OUTPUT ACCEPT
+#sudo iptables -P FORWARD ACCEPT
+#sudo iptables -F
+#
+#sudo iptables --list
 
 vagrant box add --provider libvirt generic/alpine312
 #vagrant init generic/alpine312
@@ -60,8 +60,7 @@ vagrant ssh-config | sed 's/PasswordAuthentication no/PasswordAuthentication yes
 
 : "ssh config conts"
 
-echo xx > xx
-grep -n ^ ssh-config xx
+grep -n ^ /dev/null ssh-config
 
 sshpass -pvagrant ssh -F ./ssh-config default pwd > pwd_result
 
