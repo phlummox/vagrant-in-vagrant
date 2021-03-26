@@ -34,6 +34,8 @@ sudo apt install -y --no-install-recommends \
     libvirt-bin \
     libvirt-dev
 
+sudo apt install sshpass
+
 sudo systemctl start libvirtd
 sudo systemctl status libvirtd
 
@@ -51,9 +53,15 @@ cp /tmp/Vagrantfile .
 
 vagrant ssh-config | sed 's/PasswordAuthentication no/PasswordAuthentication yes/' > ssh-config
 
+: "ssh config conts"
+
+cat -n ssh-config
+
 vagrant up --no-provision --debug --provider libvirt
 
-sudo apt install sshpass
+: "ssh config conts"
+
+cat -n ssh-config
 
 sshpass -pvagrant ssh -F ./ssh-config default pwd > pwd_result
 
