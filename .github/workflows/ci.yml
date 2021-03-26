@@ -78,7 +78,7 @@ jobs:
         set -x
 
         # update gids and run tests
-        sudo su -l $USER -c "set -ex; cd $PWD; pwd; id; ls -al /var/run/libvirt/libvirt-sock; ./test-vm.sh"
+        sudo su -l $USER -c "set -ex; export CI=$CI; cd $PWD; pwd; id; ls -al /var/run/libvirt/libvirt-sock; ./test-vm.sh"
 
     - name: Extract start of changelog
       run: |

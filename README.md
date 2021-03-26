@@ -1,8 +1,18 @@
 # vagrant-in-vagrant
 
-A vagrant box, containing vagrant.
+Builds and uploads (to the GitHub releases page, and to the
+Vagrant Cloud, in the case of the box):
 
-(Plus the libvirt plugin for vagrant.)
+- The libvirt plugin for vagrant, built on Ubuntu 18.04.
+- A vagrant box, based on Ubuntu 18.04, containing vagrant
+  and the libvirt driver.
+
+Together these can be used to run vagrant boxes within vagrant
+boxes, even on Continuous Integration (CI) servers that don't support
+(for instance) VirtualBox, or provideahardware-based acceleration.
+
+Why would you want that? Usually, because you're wanting to
+build and test virtual machines on a CI server.
 
 ## Prerequisites
 
