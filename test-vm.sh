@@ -51,17 +51,17 @@ vagrant box add --provider libvirt generic/alpine312
 #vagrant init generic/alpine312
 cp /tmp/Vagrantfile .
 
-vagrant ssh-config | sed 's/PasswordAuthentication no/PasswordAuthentication yes/' > ssh-config
-
-: "ssh config conts"
-
-cat -n ssh-config
 
 vagrant up --no-provision --debug --provider libvirt
 
 : "ssh config conts"
 
-cat -n ssh-config
+vagrant ssh-config | sed 's/PasswordAuthentication no/PasswordAuthentication yes/' > ssh-config
+
+: "ssh config conts"
+
+echo xx > xx
+grep -n ^ ssh-config xx
 
 sshpass -pvagrant ssh -F ./ssh-config default pwd > pwd_result
 
