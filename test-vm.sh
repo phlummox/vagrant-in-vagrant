@@ -29,7 +29,7 @@ vagrant init vinv
 # adjust vagrantfile to use correct
 # driver
 sed -i 's/^end/  config.vm.provider :libvirt do |lv|\
-    lv.driver = '"$LIBVIRT_DRIVER"'\
+    lv.driver = "'"$LIBVIRT_DRIVER"'"\
   end\
 end/' Vagrantfile
 
