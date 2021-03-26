@@ -24,14 +24,14 @@ else
   LIBVIRT_DRIVER=qemu;
 fi
 
-vagrant init vinv
-
-# adjust vagrantfile to use correct
-# driver
-sed -i 's/^end/  config.vm.provider :libvirt do |lv|\
-    lv.driver = "'"$LIBVIRT_DRIVER"'"\
-  end\
-end/' Vagrantfile
+cat > Vagrantfile <<EOF
+Vagrant.configure("2") do |config|
+  config.vm.box = "vinv"
+  config.vm.provider :libvirt do |lv|
+    lv.driver = '$LIBVIRT_DRIVER'
+  end
+end
+EOF
 
 # check conts
 
@@ -39,6 +39,8 @@ grep -n ^ /dev/null Vagrantfile
 
 vagrant up --provider libvirt
 
+# Vagrantfile for "nested" vm
+# to bring up.
 
 cat > /tmp/Vagrantfile <<EOF
 Vagrant.configure("2") do |config|
