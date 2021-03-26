@@ -20,9 +20,9 @@ Vagrant.configure(2) do |config|
     # Use 'kvm' as a driver, by default; if end-user wants
     # to use some other driver, they can specify explicitly.
     #
-    # Why? Because on github's CI, it seems kvm acceleration
-    # *isn't* available, and we tell packer to use the default.
-    # But this seems to result in the package .box not using
+    # Why? Because it seems if we tell packer to use the default
+    # ("choose kvm if available, otherwise software accel")
+    # then this seems to result in the package .box not using
     # kvm by default -- and we want it to.
     lv.driver = 'kvm'
   end

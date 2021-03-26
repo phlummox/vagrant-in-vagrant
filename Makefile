@@ -12,8 +12,6 @@ print_box_name:
 print_box_version:
 	@echo $(BOX_VERSION)
 
-
-
 $(UBUNTU_IMG_PATH):
 	vagrant box add \
 	  --provider libvirt \
