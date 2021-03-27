@@ -42,10 +42,18 @@ echo "uploading $AUTHOR/$BOX_NAME vmware_desktop packer .box file"
 VAGRANT_CLOUD_PATH=$(curl -L "https://vagrantcloud.com/api/v1/box/$AUTHOR/$BOX_NAME/version/$BOX_VERSION/provider/${PROVIDER_TYPE}/upload?access_token=$VAGRANT_CLOUD_TOKEN" |cut -d "," -f1 | cut -d'"' -f4)
 echo "$VAGRANT_CLOUD_PATH"
 
-curl -X PUT --upload-file "$PATH_TO_BUILT_BOX" "$VAGRANT_CLOUD_PATH"
+curl \
+  --progress-bar \
+  --verbose \
+  -X PUT --upload-file "$PATH_TO_BUILT_BOX" "$VAGRANT_CLOUD_PATH" > res
+
+cat -n res
 
 echo "releasing version $BOX_VERSION of $AUTHOR/$BOX_NAME $PROVIDER_TYPE"
-curl https://vagrantcloud.com/api/v1/box/$AUTHOR/$BOX_NAME/version/$BOX_VERSION/release -X PUT -d access_token="$VAGRANT_CLOUD_TOKEN" > release_result
+curl \
+  --progress-bar \
+  --verbose \
+  https://vagrantcloud.com/api/v1/box/$AUTHOR/$BOX_NAME/version/$BOX_VERSION/release -X PUT -d access_token="$VAGRANT_CLOUD_TOKEN" > release_result
 
 cat -n release_result
 
