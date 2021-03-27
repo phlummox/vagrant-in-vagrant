@@ -94,21 +94,25 @@ jobs:
 
         ./topmost-changelog-sec.sh > release-notes.md
 
+        # show conts
+        grep -n ^ /dev/null release-notes.md
+
     - name:  Set the release name
       run: |
+        set -euo pipefail
         set -x
 
-        echo github ref is "${{ github.ref }}"
+        release_name=`echo "${{ github.ref }}" | sed 's|^refs/tags/v||'`
+        echo release name is "${release_name}"
+        echo "release_name=${release_name}" >> $GITHUB_ENV
 
-        #echo "release_name=${{ github.ref }}" | sed 's/\<v//' >> $GITHUB_ENV
 
-    #- name:  Show the release name
-    #  run: |
-    #    set -x
+    - name:  Show the release name can be read from "env."
+      run: |
+        set -euo pipefail
+        set -x
 
-    #    #echo release name is "${{ release_name }}"
-    #    cat $GITHUB_ENV
-
+        echo release name is "${{ env.release_name }}"
 
     - name: Release (if tagged)
       uses: softprops/action-gh-release@v1
@@ -118,8 +122,7 @@ jobs:
           output/*
           vagrant.d.tgz
         body_path: release-notes.md
-        draft: true
-        # name: ${{ release_name }}
+        name: ${{ env.release_name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

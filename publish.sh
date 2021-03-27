@@ -45,7 +45,7 @@ echo "$VAGRANT_CLOUD_PATH"
 curl \
   --progress-bar \
   --verbose \
-  -X PUT --upload-file "$PATH_TO_BUILT_BOX" "$VAGRANT_CLOUD_PATH" > res
+  -X PUT --upload-file "$PATH_TO_BUILT_BOX" "$VAGRANT_CLOUD_PATH" > res || true
 
 cat -n res
 
