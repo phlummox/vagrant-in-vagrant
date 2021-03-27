@@ -41,7 +41,12 @@ source "qemu" "vagrant_in_vagrant" {
 
   shutdown_command  = "sudo shutdown now"
 
-  accelerator       = "kvm"
+  # Needn't specify an accelerator - packer docco
+  # says kvm will be used by default if available,
+  # else tcg: https://www.packer.io/docs/builders/qemu.
+
+  #accelerator       = "kvm"
+
   ssh_username      = "vagrant"
   ssh_password      = "vagrant"
   #ssh_timeout       = "20m"
