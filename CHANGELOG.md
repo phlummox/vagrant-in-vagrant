@@ -2,6 +2,6 @@
 
 Notable changes should be documented in this file.
 
-## [Unreleased] - yyyy-mm-dd
+## [0.0.1] - 2021-02-27
 
 Unleashed on the world.
