@@ -34,7 +34,7 @@ jobs:
         curl -L "${VAGRANT_URL}" > $dir/vagrant.deb;
         sudo apt install $PWD/$dir/vagrant.deb;
 
-    - name: run build
+    - name: install build dependencies
       run: |
         set -euo pipefail
         set -x
@@ -44,6 +44,12 @@ jobs:
           pv \
           qemu-kvm \
           qemu-utils
+
+    - name: run build
+      run: |
+        set -euo pipefail
+        set -x
+
         make packer-build
 
     # ## A "mock" build -- just download an artifact and
@@ -53,9 +59,10 @@ jobs:
     #    set -euo pipefail
     #    set -x
 
-    #    wget 'https://github.com/phlummox/vagrant-in-vagrant/releases/download/v0.2.x/vagrant.d.tgz'
+    #    vinv_url="https://github.com/phlummox/vagrant-in-vagrant"
+    #    wget "$vinv_url/releases/download/v0.2.x/vagrant.d.tgz"
     #    mkdir output
-    #    (cd output; wget 'https://github.com/phlummox/vagrant-in-vagrant/releases/download/v0.2.x/vagrant_in_vagrant_0.0.1.box')
+    #    (cd output; wget "$vinv_url/releases/download/v0.2.x/vagrant_in_vagrant_0.0.1.box")
 
     - name: install test dependencies
       run: |
